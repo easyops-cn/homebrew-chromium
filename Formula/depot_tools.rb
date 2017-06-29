@@ -8,28 +8,19 @@ class DepotTools < Formula
   homepage 'https://dev.chromium.org/developers/how-tos/install-depot-tools'
   url 'https://chromium.googlesource.com/chromium/tools/depot_tools.git', :branch => 'master'
   version '2017.06.29'
-
-  depends_on 'repo'
+  revision 1
 
   def install
-    dst = prefix
-    dst.mkpath unless dst.directory?
-    mv Dir.glob('*'), dst
-    %w[gclient gcl git-cl hammer drover cpplint.py presubmit_support.py
-          git-try git-gs git-hyper-blame zsh-goodies].each do |tool|
-          (bin/tool).write <<-EOS.undent
-            #!/bin/bash
-            TOOL=#{prefix}/#{tool}
-            export DEPOT_TOOLS_UPDATE=0
-            export PATH="$PATH:#{prefix}"
-            exec "$TOOL" "$@"
-          EOS
-        end
-  end
-
-  test do
-    %w[gclient presubmit_support.py].each do |tool|
-      system "#{bin}/#{tool} --version"
+    # Remove windows files
+    rm_f Dir["*.bat"]
+    # Install manuals
+    man.install Dir["man/man1"]
+    # Copy to libexec
+    libexec.install Dir["*"]
+    # Install binaries
+    bin.mkpath unless bin.directory?
+    Dir["#{libexec}/*"].each do |exec|
+      bin.install_symlink exec if File.executable?(exec) and !File.directory?(exec)
     end
   end
 end
