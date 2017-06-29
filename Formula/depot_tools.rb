@@ -4,8 +4,8 @@ require "formula"
 # Credit to https://github.com/Homebrew/homebrew/pull/17675/files
 #
 
-class Depot < Formula
-  homepage 'http://dev.chromium.org/developers/how-tos/install-depot-tools'
+class DepotTools < Formula
+  homepage 'https://dev.chromium.org/developers/how-tos/install-depot-tools'
   url 'https://chromium.googlesource.com/chromium/tools/depot_tools.git', :branch => 'master'
   version 'master'
 
@@ -19,9 +19,9 @@ class Depot < Formula
       trychange.py git-try wtf weekly git-gs zsh-goodies].each do |tool|
       (bin/tool).write <<-EOS.undent
         #!/bin/bash
-        TOOL=#{prefix}/tools/#{tool}
+        TOOL=#{prefix}/#{tool}
         export DEPOT_TOOLS_UPDATE=0
-        export PATH="$PATH:#{prefix}/tools"
+        export PATH="$PATH:#{prefix}"
         exec "$TOOL" "$@"
       EOS
     end
