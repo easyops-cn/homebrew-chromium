@@ -1,11 +1,16 @@
-homebrew-chromium
-=================
+# Homebrew Chromium Tools
 
-**UNMAINTAINED - PLEASE DON'T USE**
+A centralized repository for [Chromium Tools](https://chromium.googlesource.com/chromium/tools)
 
-Please see **homebrew-head-only/depot-tools**:
+## Requirements
 
-* https://github.com/Homebrew/homebrew-head-only/blob/master/depot-tools.rb
-* `brew install --HEAD homebrew/head-only/depot-tools`
+* [Homebrew](https://github.com/Homebrew/brew)
+* macOS >= 10.10. Untested everywhere else.
 
-Formula related to Chromium / CEF
+## Installation
+
+Run the following in your command-line:
+
+```bash
+brew tap easyops-cn/homebrew-chromium-tools
+```
